@@ -1,0 +1,2 @@
+#Slav Weather App. This is my first small webapp in which I've used GIT version controller.
+The main reason of creating this app is practise fetching some data form external public API in this case I've used 'https://www.metaweather.com/api/'.
