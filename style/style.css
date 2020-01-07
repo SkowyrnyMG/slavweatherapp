@@ -21,12 +21,15 @@ html {
   font-size: 62.5%;
   box-sizing: border-box;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; }
+  @media only screen and (max-width: 1200px) {
+    html {
+      font-size: 50%; } }
 
 .container {
   width: 100%;
   min-width: 50rem;
   height: 100vh;
-  min-height: 40rem;
+  min-height: 80rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,16 +39,22 @@ html {
     min-width: 50rem; }
   .container > *:not(:first-child) {
     box-shadow: 0 0 2rem 0.5rem #3282b8; }
+  @media only screen and (max-width: 1200px) {
+    .container {
+      height: auto;
+      padding: 2rem; } }
 
 .title-box {
   width: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 5rem; }
+  margin-bottom: 5rem;
+  text-align: center; }
 
 .weather-box {
   height: 50%;
+  min-height: 40rem;
   width: 50%;
   background-color: #4e9bcf;
   border-top-left-radius: .5rem;
@@ -59,12 +68,24 @@ html {
     text-transform: uppercase; }
   .weather-box__country {
     height: 30%;
+    min-height: 25%;
     display: flex;
     justify-content: center;
     align-items: center; }
     .weather-box__country-name {
       font-size: 5rem;
-      color: #1b262c; }
+      color: #1b262c;
+      text-align: center; }
+      @media only screen and (max-width: 1900px) {
+        .weather-box__country-name {
+          font-size: 4rem;
+          margin-top: 2rem; } }
+      @media only screen and (max-width: 1200px) {
+        .weather-box__country-name {
+          font-size: 5rem;
+          margin-top: 0;
+          margin-left: 1rem;
+          margin-right: 1rem; } }
   .weather-box__weather {
     height: 70%;
     display: flex;
@@ -74,9 +95,16 @@ html {
     .weather-box__weather .temperature {
       font-size: 10rem;
       color: #1b262c; }
+    .weather-box__weather .icon-box {
+      width: 10rem;
+      height: 10rem; }
+      .weather-box__weather .icon-box .icon {
+        width: 10rem;
+        height: 10rem; }
 
 .flag-box {
   height: 20%;
+  min-height: 18.7rem;
   width: 50%;
   padding: 1rem;
   padding-left: 4rem;
@@ -100,7 +128,13 @@ html {
     font-weight: 900;
     font-size: 1rem;
     opacity: 0;
-    transition: opacity .1s .25s; }
+    transition: opacity .1s .25s;
+    margin-bottom: 1rem; }
+  @media only screen and (max-width: 1200px) {
+    .flag-box {
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      height: auto; } }
 
 .flag-box__flag {
   display: flex;
@@ -116,7 +150,7 @@ html {
 
 .flag-img {
   border-radius: .5rem;
-  margin-bottom: 1rem; }
+  margin-bottom: .5rem; }
 
 .flag-img {
   width: 100%; }
