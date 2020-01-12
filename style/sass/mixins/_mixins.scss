@@ -1,0 +1,12 @@
+@mixin inputAppearance {
+    -webkit-appearance: none;
+    position: absolute;
+    transform: translate(-9999px);
+}
+
+@mixin absoluteCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

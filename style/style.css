@@ -10,6 +10,12 @@
   text-transform: uppercase;
   letter-spacing: 1px; }
 
+@keyframes rotate {
+  from {
+    transform: rotate(0); }
+  to {
+    transform: rotate(360deg); } }
+
 *,
 *::before,
 *::after {
@@ -24,6 +30,43 @@ html {
   @media only screen and (max-width: 1200px) {
     html {
       font-size: 50%; } }
+
+.loader-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+  background-color: rgba(27, 38, 44, 0.6);
+  width: 10rem;
+  height: 10rem;
+  border-radius: 30rem;
+  justify-content: center;
+  align-items: center; }
+
+.loader {
+  width: 10rem;
+  height: 10rem;
+  animation: rotate 2s infinite linear; }
+
+.dot {
+  width: 1rem;
+  height: 1rem;
+  display: inline-block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background-color: #bbe1fa;
+  border-radius: 50%;
+  transform: translate(-50%, -50%); }
+  .dot:nth-child(1) {
+    transform: translate(100%, -50%); }
+  .dot:nth-child(2) {
+    transform: translate(-200%, -50%); }
+  .dot:nth-child(3) {
+    transform: translate(-50%, 100%); }
+  .dot:nth-child(4) {
+    transform: translate(-50%, -200%); }
 
 .container {
   width: 100%;
@@ -54,8 +97,9 @@ html {
 
 .weather-box {
   height: 50%;
-  min-height: 40rem;
+  min-height: 50rem;
   width: 50%;
+  position: relative;
   background-color: #4e9bcf;
   border-top-left-radius: .5rem;
   border-top-right-radius: .5rem;
@@ -63,9 +107,46 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly; }
+  justify-content: space-evenly;
+  overflow: hidden; }
   .weather-box > * {
     text-transform: uppercase; }
+  .weather-box__navigation {
+    margin-bottom: 1rem;
+    width: 100%;
+    background-color: #3282b8;
+    padding: 2rem;
+    box-shadow: 0 0.5rem 1rem rgba(27, 38, 44, 0.3); }
+    .weather-box__navigation .nav-list {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-around; }
+      .weather-box__navigation .nav-list input {
+        -webkit-appearance: none;
+        position: absolute;
+        transform: translate(-9999px); }
+      .weather-box__navigation .nav-list input[type="radio"]:checked + label {
+        color: #bbe1fa;
+        transform: scale(1); }
+        @media only screen and (max-width: 1200px) {
+          .weather-box__navigation .nav-list input[type="radio"]:checked + label {
+            transform: scale(1.3); } }
+      .weather-box__navigation .nav-list__item {
+        font-size: 1.5rem;
+        font-weight: 900;
+        padding: 1.5rem 3rem;
+        border-radius: 2rem;
+        cursor: pointer;
+        transition: all .25s ease, transform .25s ease-in-out .1s; }
+        .weather-box__navigation .nav-list__item:hover, .weather-box__navigation .nav-list__item:focus {
+          transform: translateY(-5px);
+          box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.3);
+          background-color: #3a90c9;
+          color: #bbe1fa; }
+        .weather-box__navigation .nav-list__item:active {
+          box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.5);
+          background-color: #3385bc; }
   .weather-box__country {
     height: 30%;
     min-height: 25%;
@@ -88,6 +169,7 @@ html {
           margin-right: 1rem; } }
   .weather-box__weather {
     height: 70%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -102,11 +184,41 @@ html {
         width: 10rem;
         height: 10rem; }
 
+.weather-box__week-weather {
+  position: relative;
+  width: 100%;
+  height: 95%;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(min-content, 1fr));
+  justify-content: center;
+  align-items: center;
+  text-align: center; }
+
+.day {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center; }
+  .day:not(:last-child) {
+    border-right: 1px solid rgba(187, 225, 250, 0.5); }
+  .day-date {
+    font-size: 1.5rem;
+    font-weight: 900; }
+
+.temperature-week {
+  font-size: 5rem; }
+
+.icon-box-week > * {
+  width: 5rem;
+  height: 5rem; }
+
 .flag-box {
   height: 20%;
   min-height: 18.7rem;
   width: 50%;
   padding: 1rem;
+  padding-bottom: 3rem;
   padding-left: 4rem;
   padding-right: 4rem;
   background-color: #bbe1fa;
@@ -118,9 +230,22 @@ html {
   grid-column-gap: 1rem;
   justify-items: center;
   align-items: center;
-  pointer-events: none; }
-  .flag-box:hover .flag-box__flag {
-    transform: scale(0.6); }
+  pointer-events: none;
+  position: relative; }
+  .flag-box input {
+    -webkit-appearance: none;
+    position: absolute;
+    transform: translate(-9999px); }
+  .flag-box input[type="radio"]:checked + .flag-box__flag {
+    z-index: 10;
+    opacity: 1;
+    transform: scale(1); }
+    @media only screen and (max-width: 1200px) {
+      .flag-box input[type="radio"]:checked + .flag-box__flag {
+        transform: scale(1.3); } }
+  .flag-box input[type="radio"]:not(:checked) + .flag-box__flag {
+    transform: scale(0.6);
+    z-index: 5; }
   .flag-box__title {
     grid-column: 1 / -1; }
   .flag-box__flag-description {
@@ -143,14 +268,52 @@ html {
   cursor: pointer;
   pointer-events: auto;
   transition: transform .25s .1s; }
+  .flag-box__flag:not(:hover) {
+    transform: scale(0.6);
+    opacity: 0.6; }
+  .flag-box__flag:not(:hover) img {
+    filter: grayscale(90%); }
   .flag-box__flag:hover {
-    transform: scale(1.5) !important; }
+    z-index: 30 !important;
+    opacity: 1;
+    transform: scale(1) !important; }
+    @media only screen and (max-width: 1200px) {
+      .flag-box__flag:hover {
+        transform: scale(1.3); } }
   .flag-box__flag:hover .flag-box__flag-description {
     opacity: 1; }
 
 .flag-img {
   border-radius: .5rem;
-  margin-bottom: .5rem; }
+  margin-bottom: .5rem;
+  transition: filter .25s ease; }
 
 .flag-img {
   width: 100%; }
+
+.submit {
+  --translate50-50: translate(-50%, -50%);
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #bbe1fa;
+  letter-spacing: 2px;
+  background-color: #307cb0;
+  padding: 1rem 2rem;
+  border: 1rem solid #bbe1fa;
+  border-radius: 2rem;
+  outline: none;
+  display: inline-block;
+  position: absolute;
+  bottom: -35%;
+  left: 50%;
+  transform: var(--translate50-50);
+  pointer-events: auto;
+  cursor: pointer;
+  transition: transform .25s; }
+  .submit:hover, .submit:focus {
+    background-color: #289b28; }
+  .submit:active {
+    transform: translate(-50%, -55%); }
+  @media only screen and (max-width: 1200px) {
+    .submit {
+      bottom: -10%; } }

@@ -35,8 +35,9 @@
 
 .weather-box {
     height: 50%;
-    min-height: 40rem;
+    min-height: 50rem;
     width: 50%;
+    position: relative;
     background-color: lighten($color-2, 10%);
     border-top-left-radius: .5rem;
     border-top-right-radius: .5rem;
@@ -45,10 +46,64 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+    overflow: hidden;
 
     & > * {
         text-transform: uppercase;
     }
+
+    &__navigation {
+        margin-bottom: 1rem;
+        width: 100%;
+        background-color: $color-2;
+        padding: 2rem;
+        box-shadow: 0 .5rem 1rem rgba($color-4, .3);
+
+        .nav-list{
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+
+            input {
+                @include inputAppearance;
+            }
+
+            input[type="radio"]:checked + label {
+                color: $color-3;
+                transform: $scale-desktop;
+                @media only screen and (max-width: 1200px) {
+                transform: $scale-mobile;
+        }
+            }
+
+            &__item {
+                font-size: 1.5rem;
+                font-weight: 900;
+                padding: 1.5rem 3rem;
+                border-radius: 2rem;
+                cursor: pointer;
+
+                transition: all .25s ease, transform .25s ease-in-out .1s;
+
+                &:hover,
+                &:focus {
+                    transform: translateY(-5px);
+                    box-shadow: 0 1rem 3rem rgba(0, 0, 0, .3);
+                    background-color: lighten($color-2, 5%);
+                    color: $color-3;
+                }
+
+                &:active {
+                    box-shadow: 0 .3rem 1rem rgba(0, 0, 0, .5);
+                    background-color: lighten($color-2, 1%);
+                }
+            }
+
+        }
+    }
+
+
 
     &__country {
         height: 30%;
@@ -77,6 +132,7 @@
 
     &__weather {
         height: 70%;
+        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -100,11 +156,54 @@
     }
 }
 
+// 5 days weather-box
+
+.weather-box__week-weather {
+    position: relative;
+    width: 100%;
+    height: 95%;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(min-content, 1fr));
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.day {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+
+
+    &:not(:last-child) {
+        border-right: 1px solid rgba($color-3, .5);
+    }
+
+    &-date {
+        font-size: 1.5rem;
+        font-weight: 900;
+    }
+}
+
+.temperature-week {
+    font-size: 5rem;
+}
+
+.icon-box-week > * {
+    width: 5rem;
+    height: 5rem;
+}
+
+
+
 .flag-box {
     height: 20%;
     min-height: 18.7rem;
     width: 50%;
     padding: 1rem;
+    padding-bottom: 3rem;
     padding-left: 4rem;
     padding-right: 4rem;
     background-color: $color-3;
@@ -117,9 +216,25 @@
     justify-items: center;
     align-items: center;
     pointer-events: none;
+    position: relative;
 
-    &:hover &__flag {
+    input {
+        @include inputAppearance;
+    }
+
+    input[type="radio"]:checked + .flag-box__flag {
+        z-index: 10;
+        opacity: 1;
+        transform: $scale-desktop;
+        @media only screen and (max-width: 1200px) {
+            transform: $scale-mobile;
+        }
+    }
+
+    input[type="radio"]:not(:checked) + .flag-box__flag {
         transform: scale(.6);
+        z-index: 5;
+
     }
 
     &__title {
@@ -151,8 +266,23 @@
 
     transition: transform .25s .1s;
 
+    &:not(:hover) {
+        transform: scale(.6);
+        opacity: 0.6;
+    }
+
+    &:not(:hover) img {
+        filter: grayscale(90%);
+    }
+
     &:hover {
-        transform: scale(1.5) !important;
+        z-index: 30 !important;
+        opacity: 1;
+
+        transform: $scale-desktop !important;
+        @media only screen and (max-width: 1200px) {
+            transform: $scale-mobile;
+        }
     }
     &:hover .flag-box__flag-description {
         opacity: 1;
@@ -162,8 +292,45 @@
 .flag-img {
     border-radius: .5rem;
     margin-bottom: .5rem;
+
+    transition: filter .25s ease;
 }
 
 .flag-img {
     width: 100%;
+}
+
+.submit {
+    --translate50-50: translate(-50%, -50%);
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: $color-3;
+    letter-spacing: 2px;
+    background-color: darken($color-2, 2%);
+    padding: 1rem 2rem;
+    border: 1rem solid $color-3;
+    border-radius: 2rem;
+    outline: none;
+    display: inline-block;
+    position: absolute;
+    bottom: -35%;
+    left: 50%;
+    transform: var(--translate50-50);
+    pointer-events: auto;
+    cursor: pointer;
+
+    transition: transform .25s;
+
+    &:hover,
+    &:focus {
+        background-color: rgb(40, 155, 40);
+    }
+
+    &:active {
+        transform: translate(-50%, -55%);
+    }
+
+    @media only screen and (max-width: 1200px) {
+        bottom: -10%;
+    }
 }

@@ -1,0 +1,41 @@
+.loader-box {
+    @include absoluteCenter;
+    display: none;
+    background-color: rgba($color-4, .6);
+    width: 10rem;
+    height: 10rem;
+    border-radius: 30rem;
+    justify-content: center;
+    align-items: center;
+
+}
+.loader {
+    width: 10rem;
+    height: 10rem;
+    animation: rotate 2s infinite linear;
+}
+
+    .dot {
+        width: 1rem;
+        height: 1rem;
+        display: inline-block;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        background-color: $color-3;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+
+        &:nth-child(1){
+            transform: translate(100%, -50%);
+        }
+        &:nth-child(2){
+            transform: translate(-200%, -50%);
+        }
+        &:nth-child(3){
+            transform: translate(-50%, 100%);
+        }
+        &:nth-child(4){
+            transform: translate(-50%, -200%);
+        }
+    }
